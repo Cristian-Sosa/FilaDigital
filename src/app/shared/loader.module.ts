@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoaderComponent, ToastComponent } from './components';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { FooterComponent } from './components/footer/footer.component';
+
 
 @NgModule({
-  declarations: [ToastComponent, LoaderComponent, ToolbarComponent, FooterComponent],
+  declarations: [ToastComponent, LoaderComponent],
   imports: [CommonModule],
   exports: [ToastComponent, LoaderComponent],
 })
