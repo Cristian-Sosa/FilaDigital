@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -8,10 +9,10 @@ export class PuestoService {
   private puesto: number | null = null;
   private _puesto: BehaviorSubject<number | null>;
 
-  private sucursal: number | null = null;
-  private _sucursal: BehaviorSubject<number | null>;
+  private sucursal: string | null = null;
+  private _sucursal: BehaviorSubject<string | null>;
 
-  constructor() {
+  constructor(private router: Router, private route: ActivatedRoute) {
     this._puesto = new BehaviorSubject(this.puesto);
     this._sucursal = new BehaviorSubject(this.sucursal);
   }
@@ -26,11 +27,9 @@ export class PuestoService {
   };
 
   // Manejo de Sucursales
-  getCurrentSucursal = (): Observable<number | null> =>
+  getCurrentSucursal = (): Observable<string | null> =>
     this._sucursal.asObservable();
 
-  setSucursal = (sucursal: number | null): void => {
-    this.sucursal = sucursal;
-    this._sucursal.next(this.sucursal);
+  setSucursal = (sucursal?: string | null): void => {
   };
 }
