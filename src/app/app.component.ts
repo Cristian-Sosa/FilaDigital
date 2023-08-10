@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { PuestoService } from './shared';
-import { take } from 'rxjs';
+import { LoaderService, PuestoService } from './shared';
 import { SucursalService } from './shared/services/sucursal/sucursal.service';
 
 @Component({
@@ -10,14 +9,21 @@ import { SucursalService } from './shared/services/sucursal/sucursal.service';
   styleUrls: ['./app.component.sass'],
 })
 export class AppComponent implements OnInit {
+  public isLoading: boolean = true;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private puestoService: PuestoService,
-    private sucursalService: SucursalService
+    private sucursalService: SucursalService,
+    private loaderService: LoaderService
   ) {}
 
   ngOnInit(): void {
+    this.loaderService
+      .getLoaderObservable()
+      .subscribe((loaderState) => (this.isLoading = loaderState));
+      
     this.route.params.subscribe({
       next: async (param) => {
         const sucursal: string = await param['sucursal'];
@@ -29,6 +35,10 @@ export class AppComponent implements OnInit {
         this.router.navigate(['404']);
       },
     });
+    this.sucursalService.setSucursal(
+      this.route.snapshot.paramMap.get('sucursal')!
+    );
+    this.puestoService.setPuesto(this.route.snapshot.paramMap.get('puesto')!);
   }
 
   setData = (sucursal: string, puesto: string): void => {

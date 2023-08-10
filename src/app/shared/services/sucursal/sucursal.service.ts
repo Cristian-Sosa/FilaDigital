@@ -34,22 +34,22 @@ export class SucursalService {
       switch (sucursal.toLocaleLowerCase()) {
         case 'av':
           this.sucursal = 1;
-          this.sucursalName = 'SuperMami - alto verde';
+          this.sucursalName = 'SuperMami Alto Verde';
           break;
         case 'r20':
           this.sucursal = 2;
-          this.sucursalName = 'SuperMami - ruta 20';
+          this.sucursalName = 'SuperMami Ruta 20';
           break;
         case 'sv':
           this.sucursal = 3;
-          this.sucursalName = 'SuperMami - san vicente';
+          this.sucursalName = 'SuperMami San Vicente';
           break;
 
         default:
-          this._sucursal.next(this.sucursal);
-          this._sucursalName.next(this.sucursalName);
           break;
       }
+      this._sucursal.next(this.sucursal);
+      this._sucursalName.next(this.sucursalName);
     }
   };
 }

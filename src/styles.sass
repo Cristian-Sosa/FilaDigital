@@ -11,7 +11,29 @@ body, html
     overflow-x: hidden
 
 app-auth
-    width: 100vw
+    width: min(100vw, 400px)
     height: 100%
 
-    display: inline-block
+    margin: auto
+    padding: 32px 24px
+
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: center
+
+app-loader
+    width: 100vw
+    height: 100vh
+
+    background-color: rgba(0, 0, 0, 0.8)
+
+    display: flex
+    justify-content: center
+    align-items: center
+
+    position: absolute
+    top: 0
+    left: 0
+
+    z-index: 100

@@ -1,13 +1,34 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 
 const routes: Routes = [
   {
-    path: 'turnero/:sucursal/:puesto',
-    loadChildren: () => import('./index').then((m) => m.InicioSesionModule)
+    path: 'turnero',
+    children: [
+      {
+        path: 'AV/carniceria',
+        loadChildren: () => import('./index').then((m) => m.InicioSesionModule),
+      },
+      {
+        path: 'AV/fiambreria',
+        loadChildren: () => import('./index').then((m) => m.InicioSesionModule),
+      },
+      {
+        path: 'R20/carniceria',
+        loadChildren: () => import('./index').then((m) => m.InicioSesionModule),
+      },
+      {
+        path: 'R20/fiambreria',
+        loadChildren: () => import('./index').then((m) => m.InicioSesionModule),
+      },
+    ],
   },
-  { path: '404', component: AppComponent },
+  { path: '**', redirectTo: '404', pathMatch: 'full' },
+  { path: '', redirectTo: '**', pathMatch: 'full' },
+  {
+    path: '404',
+    loadChildren: () => import('./index').then((m) => m.InicioSesionModule),
+  },
 ];
 
 @NgModule({

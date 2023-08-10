@@ -5,15 +5,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { InicioSesionRoutingModule } from './inicio-sesion-routing.module';
 import { AuthComponent } from '../../pages';
+import { AuthFormComponent } from '../../components';
+import { ButtonsModule } from 'src/app/shared/buttons.module';
+import { LoaderModule } from 'src/app/shared';
 
 @NgModule({
-  declarations: [AuthComponent],
+  declarations: [AuthComponent, AuthFormComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     InicioSesionRoutingModule,
+    ButtonsModule,
   ],
   exports: [AuthComponent],
 })
