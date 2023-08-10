@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 
 const routes: Routes = [
   { path: 'turnero/:sucursal/:puesto', component: AppComponent },
-  { path: '404', component: AppComponent },
 ];
 
 @NgModule({

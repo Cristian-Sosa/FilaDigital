@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -9,27 +9,32 @@ export class PuestoService {
   private puesto: number | null = null;
   private _puesto: BehaviorSubject<number | null>;
 
-  private sucursal: string | null = null;
-  private _sucursal: BehaviorSubject<string | null>;
-
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router) {
     this._puesto = new BehaviorSubject(this.puesto);
-    this._sucursal = new BehaviorSubject(this.sucursal);
   }
 
   // Manejo de Puestos
-  getCurrentPuesto = (): Observable<number | null> =>
+  getObservablePuesto = (): Observable<number | null> =>
     this._puesto.asObservable();
 
-  setPuesto = (puesto: number): void => {
-    this.puesto = puesto;
-    this._puesto.next(this.puesto);
-  };
+  getCurrentPuesto = (): number | null => this.puesto;
 
-  // Manejo de Sucursales
-  getCurrentSucursal = (): Observable<string | null> =>
-    this._sucursal.asObservable();
+  setPuesto = (puesto: string): void => {
+    if (puesto !== undefined || puesto !== null) {
+      switch (puesto) {
+        case 'carniceria':
+          this.puesto = 1;
+          break;
+        case 'fiambreria':
+          this.puesto = 2;
+          break;
 
-  setSucursal = (sucursal?: string | null): void => {
+        default:
+          this._puesto.next(this.puesto);
+          break;
+      }
+    } else {
+      this.router.navigate(['404']);
+    }
   };
 }
