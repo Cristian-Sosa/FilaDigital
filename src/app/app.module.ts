@@ -3,16 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SessionExpiredComponent } from './core/pages/session-expired/session-expired.component';
-import { TurneroDigitalComponent } from './core/components/turnero-digital/turnero-digital.component';
-import { CarrouselComponent } from './core/components/carrousel/carrousel.component';
+import { FooterComponent, ToolbarComponent } from './shared';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SessionExpiredComponent,
-    TurneroDigitalComponent,
-    CarrouselComponent,
+    ToolbarComponent,
+    FooterComponent
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

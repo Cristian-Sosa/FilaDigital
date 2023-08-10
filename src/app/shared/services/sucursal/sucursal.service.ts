@@ -34,15 +34,15 @@ export class SucursalService {
       switch (sucursal.toLocaleLowerCase()) {
         case 'av':
           this.sucursal = 1;
-          this.sucursalName = 'super mami - alto verde';
+          this.sucursalName = 'SuperMami - alto verde';
           break;
         case 'r20':
           this.sucursal = 2;
-          this.sucursalName = 'super mami - ruta 20';
+          this.sucursalName = 'SuperMami - ruta 20';
           break;
         case 'sv':
           this.sucursal = 3;
-          this.sucursalName = 'super mami - san vicente';
+          this.sucursalName = 'SuperMami - san vicente';
           break;
 
         default:
