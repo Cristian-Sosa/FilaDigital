@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -9,7 +8,7 @@ export class PuestoService {
   private puesto: number | null = null;
   private _puesto: BehaviorSubject<number | null>;
 
-  constructor(private router: Router) {
+  constructor() {
     this._puesto = new BehaviorSubject(this.puesto);
   }
 
@@ -20,8 +19,8 @@ export class PuestoService {
   getCurrentPuesto = (): number | null => this.puesto;
 
   setPuesto = (puesto: string): void => {
-    if (puesto !== undefined || puesto !== null) {
-      switch (puesto) {
+    if (puesto) {
+      switch (puesto.toLocaleLowerCase()) {
         case 'carniceria':
           this.puesto = 1;
           break;
@@ -33,8 +32,6 @@ export class PuestoService {
           this._puesto.next(this.puesto);
           break;
       }
-    } else {
-      this.router.navigate(['404']);
     }
   };
 }
