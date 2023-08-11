@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { LoaderService, PuestoService } from './shared';
+import { LoaderService, PuestoService, ToastService } from './shared';
 import { SucursalService } from './shared/services/sucursal/sucursal.service';
 
 @Component({
@@ -10,13 +10,15 @@ import { SucursalService } from './shared/services/sucursal/sucursal.service';
 })
 export class AppComponent implements OnInit {
   public isLoading: boolean = true;
+  public isToast: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private puestoService: PuestoService,
     private sucursalService: SucursalService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -24,6 +26,7 @@ export class AppComponent implements OnInit {
       .getLoaderObservable()
       .subscribe((loaderState) => (this.isLoading = loaderState));
       
+    this.toastService.getToastObservable().subscribe((toastState) => this.isToast = toastState.show)
     this.route.params.subscribe({
       next: async (param) => {
         const sucursal: string = await param['sucursal'];

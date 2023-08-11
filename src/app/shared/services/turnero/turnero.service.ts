@@ -1,21 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { SucursalService } from '../sucursal';
+import { PuestoService } from '../puesto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TurneroService {
+  constructor(private http: HttpClient, private sucursalService: SucursalService) { }
 
-  constructor(private http: HttpClient) { }
-
-  getTurnoCliente(): Observable<any> {
-    let urlPostTurno: string = `http://www.dinosauriorrhh.com.ar/APITurneroCliente/api/TurnoCliente/IngresarTurno`;
+  getTurnoCliente(numeroTurno: number | string): Observable<any> {
+    let urlPostTurno: string = environment.apiUrl.concat(`IngresarTurno`);
 
     let oClienteReq = {
       id: 1,
-      numero: 5,
-      sector_Id: 1,
+      numero: numeroTurno,
+      sector_Id: this.sucursalService.getCurrentSucursal(),
     };
 
     // Descomentar para hacer pruebas en Testing

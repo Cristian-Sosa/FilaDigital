@@ -1,10 +1,28 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ToastService } from '../../services';
+import { IToast } from '../../models';
 
 @Component({
   selector: 'app-toast',
   templateUrl: './toast.component.html',
-  styleUrls: ['./toast.component.sass']
+  styleUrls: ['./toast.component.sass'],
 })
-export class ToastComponent {
-  @Input() message: string = 'Te postulaste correctamente'
+export class ToastComponent implements OnInit {
+  public toast: IToast = {
+    text: 'Debes ingresar tu turno',
+    icon: {
+      type: 'exclamation',
+      route: '/assets/icons/bell.svg',
+    },
+    show: false,
+  };
+  constructor(private toastService: ToastService) {}
+
+  ngOnInit(): void {
+    this.toastService.getToastObservable().subscribe({
+      next: (currentState) => {
+        this.toast = currentState;
+      },
+    });
+  }
 }
