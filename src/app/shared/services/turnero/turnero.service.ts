@@ -3,13 +3,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SucursalService } from '../sucursal';
-import { PuestoService } from '../puesto';
+import { UsuarioService } from '../usuario';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TurneroService {
-  constructor(private http: HttpClient, private sucursalService: SucursalService) { }
+  constructor(
+    private http: HttpClient,
+    private sucursalService: SucursalService,
+    private usuarioService: UsuarioService,
+  ) {}
 
   getTurnoCliente(numeroTurno: number | string): Observable<any> {
     let urlPostTurno: string = environment.apiUrl.concat(`IngresarTurno`);
@@ -25,4 +29,13 @@ export class TurneroService {
 
     return this.http.post<any>(urlPostTurno, oClienteReq);
   }
+
+  getTurnero = (): Observable<any> => {
+    let turno: number | string = this.usuarioService.getCurrentUserData()?.idTurno!;
+    let sector: number | string = this.sucursalService.getCurrentSucursal()!;
+    let urlGetTurnero: string = environment.apiUrl.concat(
+      `VerTurno?cliente_id=${turno}&sector_id=${sector}`
+    );
+    return this.http.get<any>(urlGetTurnero);
+  };
 }

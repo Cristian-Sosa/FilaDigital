@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SucursalService } from '../../services';
+import { PuestoService, SucursalService } from '../../services';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,14 +7,26 @@ import { SucursalService } from '../../services';
   styleUrls: ['./toolbar.component.sass'],
 })
 export class ToolbarComponent implements OnInit {
-  public title: string;
+  public sucursalName: string;
+  public puestoName: string;
 
-  constructor(private sucursalService: SucursalService) {
-    this.title = 'Turnero Digital'
+  constructor(
+    private sucursalService: SucursalService,
+    private puestoService: PuestoService
+  ) {
+    this.sucursalName = '';
+    this.puestoName = '';
   }
   ngOnInit(): void {
+    this.puestoService.getObservablePuestoName().subscribe({
+      next: (puestoName) => {
+        this.puestoName = puestoName || '';
+      },
+    });
     this.sucursalService.getObservableSucursalName().subscribe({
-      next: (sucursalName) => this.title = sucursalName || 'Turnero Digital'
+      next: (sucursalName) => {
+        this.sucursalName = sucursalName || '';
+      },
     });
   }
 }

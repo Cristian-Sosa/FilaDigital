@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
+import { LoaderModule } from 'src/app/shared';
+import { FilaDigitalComponent } from '../../pages';
+import { TurneroRoutingModule } from './turnero-routing.module';
+import { CarrouselComponent, TurneroDigitalComponent } from '../../components';
+import { ButtonsModule } from 'src/app/shared/buttons.module';
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+  declarations: [FilaDigitalComponent, TurneroDigitalComponent, CarrouselComponent],
+  imports: [CommonModule, TurneroRoutingModule, LoaderModule, ButtonsModule],
+  exports: [FilaDigitalComponent],
 })
-export class TurneroModule { }
+export class TurneroModule {}

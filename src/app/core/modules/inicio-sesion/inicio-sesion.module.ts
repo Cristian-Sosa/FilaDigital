@@ -7,7 +7,6 @@ import { InicioSesionRoutingModule } from './inicio-sesion-routing.module';
 import { AuthComponent } from '../../pages';
 import { AuthFormComponent } from '../../components';
 import { ButtonsModule } from 'src/app/shared/buttons.module';
-import { LoaderModule } from 'src/app/shared';
 
 @NgModule({
   declarations: [AuthComponent, AuthFormComponent],

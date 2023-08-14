@@ -1,1 +1,12 @@
-<p>fila-digital works!</p>
+<app-turnero-digital></app-turnero-digital>
+
+<app-secondary-button
+  (click)="volverInicio()"
+  [button]="{
+    text: 'Volver al inicio',
+    disabled: false,
+    type: 'button',
+  }"
+></app-secondary-button>
+<span class="description">Recuerda entregarle el turno al vendedor</span>
+<app-carrousel></app-carrousel>

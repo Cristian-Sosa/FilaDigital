@@ -21,10 +21,14 @@ const routes: Routes = [
         path: 'R20/fiambreria',
         loadChildren: () => import('./index').then((m) => m.InicioSesionModule),
       },
+      {
+        path: 'turnos',
+        loadChildren: () => import('./index').then((m) => m.TurneroModule),
+      },
     ],
   },
-  { path: '**', redirectTo: '404', pathMatch: 'full' },
   { path: '', redirectTo: '**', pathMatch: 'full' },
+  { path: '**', redirectTo: '404', pathMatch: 'full' },
   {
     path: '404',
     loadChildren: () => import('./index').then((m) => m.InicioSesionModule),

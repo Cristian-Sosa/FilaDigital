@@ -10,10 +10,14 @@ export class SucursalService {
 
   private sucursalName: string | null = null;
   private _sucursalName: BehaviorSubject<string | null>;
+  
+  private sucursalMin: string | null = null;
+  private _sucursalMin: BehaviorSubject<string | null>;
 
   constructor() {
     this._sucursal = new BehaviorSubject(this.sucursal);
     this._sucursalName = new BehaviorSubject(this.sucursalName);
+    this._sucursalMin = new BehaviorSubject(this.sucursalMin);
   }
 
   // Métodos Sucursal ID
@@ -28,21 +32,27 @@ export class SucursalService {
 
   getCurrentSucursalName = (): string | null => this.sucursalName;
 
+  // Métodos Sucursal ID
+  getCurrentSucursalMin = (): string | null => this.sucursalMin;
+
   // Seteo de sucursal <ID | Name>
   setSucursal = (sucursal: string): void => {
     if (sucursal) {
       switch (sucursal.toLocaleLowerCase()) {
         case 'av':
           this.sucursal = 1;
-          this.sucursalName = 'SuperMami Alto Verde';
+          this.sucursalName = 'Alto Verde';
+          this.sucursalMin = 'AV'
           break;
         case 'r20':
           this.sucursal = 2;
-          this.sucursalName = 'SuperMami Ruta 20';
+          this.sucursalName = 'Ruta 20';
+          this.sucursalMin = 'R20'
           break;
         case 'sv':
           this.sucursal = 3;
-          this.sucursalName = 'SuperMami San Vicente';
+          this.sucursalName = 'San Vicente';
+          this.sucursalMin = 'SV'
           break;
 
         default:
