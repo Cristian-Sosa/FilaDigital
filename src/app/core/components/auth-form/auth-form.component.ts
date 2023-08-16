@@ -57,7 +57,6 @@ export class AuthFormComponent {
       this.turnosService
         .getTurnoCliente(this.turnoForm.get('turnoInput')?.value!)
         .subscribe((response) => {
-          console.log(response)
           if (response?.status === 200 || response?.status === 201) {
             this.usuario = {
               idTurno: response?.data?.id,

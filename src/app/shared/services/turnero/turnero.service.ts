@@ -7,6 +7,7 @@ import { UsuarioService } from '../usuario';
 import { Router } from '@angular/router';
 import { ToastService } from '../toast';
 import { IToast } from '../../models';
+import { PuestoService } from '../puesto';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,7 @@ export class TurneroService {
     private sucursalService: SucursalService,
     private usuarioService: UsuarioService,
     private toastService: ToastService,
+    private puestoService: PuestoService,
     private http: HttpClient,
     private router: Router
   ) {
@@ -67,7 +69,16 @@ export class TurneroService {
     });
 
     if (this.interval === null) {
-      this.interval = setInterval(() => this.getDatosTurnero(), 10000);
+      this.interval = setInterval(() => this.getDatosTurnero(), 500);
+    }
+
+
+    if (this.turnos?.numero < this.turnos?.turnoActual?.numero) {
+      if (this.turnos?.numero < 20 && this.turnos?.turnoActual?.numero > 80) {
+      } else {
+        this.turnos = undefined;
+        this._turnos.next(this.turnos);
+      }
     }
   };
 
