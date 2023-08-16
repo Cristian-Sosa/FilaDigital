@@ -22,9 +22,7 @@ export class TurneroService {
     private sucursalService: SucursalService,
     private usuarioService: UsuarioService,
     private toastService: ToastService,
-    private puestoService: PuestoService,
     private http: HttpClient,
-    private router: Router
   ) {
     this._turnos = new BehaviorSubject(null);
   }
@@ -64,12 +62,13 @@ export class TurneroService {
         );
       },
       error: () => {
-        this.router.navigate(['404']);
+        this.turnos = undefined;
+        this._turnos.next(this.turnos);
       },
     });
 
     if (this.interval === null) {
-      this.interval = setInterval(() => this.getDatosTurnero(), 500);
+      this.interval = setInterval(() => this.getDatosTurnero(), 5500);
     }
 
 

@@ -10,7 +10,12 @@ import { PuestoService, SucursalService, TurneroService } from 'src/app/shared';
 export class TurneroDigitalComponent implements OnInit, OnDestroy {
   public turnos: any = null;
 
-  constructor(private turneroService: TurneroService, private router: Router) {}
+  constructor(
+    private turneroService: TurneroService,
+    private puestoService: PuestoService,
+    private sucursalService: SucursalService,
+    private router: Router
+  ) {}
 
   ngOnDestroy(): void {
     this.turneroService.clearInterval();
@@ -21,7 +26,11 @@ export class TurneroDigitalComponent implements OnInit, OnDestroy {
     this.turneroService.getTurnosObservable().subscribe({
       next: (turnos) => {
         if (turnos === undefined) {
-          this.router.navigate(['404']);
+          this.router.navigate([
+            'turnero',
+            this.sucursalService.getCurrentSucursalMin(),
+            this.puestoService.getCurrentPuestoName(),
+          ]);
         } else {
           this.turnos = turnos;
         }
