@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CarrouselService } from 'src/app/shared';
 
 @Component({
@@ -6,25 +6,21 @@ import { CarrouselService } from 'src/app/shared';
   templateUrl: './carrousel.component.html',
   styleUrls: ['./carrousel.component.sass'],
 })
-export class CarrouselComponent implements OnInit {
-  public imagenOferta: string | undefined;
-  public ofertasLength: number | undefined;
-
-  public ofertas: string[] = [];
+export class CarrouselComponent implements OnInit, OnDestroy {
+  public imagenOferta: string | null = null;
 
   constructor(private carrouselService: CarrouselService) {}
-
-  ngOnInit(): void {
-    this.carrouselService.getOfertas()
+  
+  ngOnDestroy(): void {
+    this.carrouselService.clearInterval()
   }
 
-  showImages = () => {
-    if (this.ofertasLength! > this.imagenOferta!.length) {
-      this.ofertasLength = 0;
-      this.imagenOferta = this.ofertas[0];
-    } else {
-      this.imagenOferta = this.ofertas[this.ofertasLength!];
-      this.ofertasLength!++;
-    }
-  };
+  ngOnInit(): void {
+    this.carrouselService.getOfertaObservable().subscribe({
+      next: (imagen) => {
+this.imagenOferta = imagen
+      }
+    })
+    this.carrouselService.getOfertas()
+  }
 }
