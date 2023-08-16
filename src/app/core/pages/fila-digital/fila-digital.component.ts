@@ -8,7 +8,20 @@ import { SucursalService, PuestoService } from 'src/app/shared';
   styleUrls: ['./fila-digital.component.sass']
 })
 export class FilaDigitalComponent {
+  public returnModal: boolean = false;
   constructor(private sucursalService: SucursalService, private puestoService: PuestoService, private router: Router) {}
 
-  volverInicio = () => this.router.navigate(['turnero', this.sucursalService.getCurrentSucursalMin(), this.puestoService.getCurrentPuestoName()])
+  showReturnModal = (): void => {
+    this.returnModal = !this.returnModal
+  }
+
+  volverInicio = (volver: boolean): void => {
+    if (volver) {
+      this.router.navigate(['turnero', this.sucursalService.getCurrentSucursalMin(), this.puestoService.getCurrentPuestoName()])
+    } else {
+      this.showReturnModal()
+    }
+  }
+    
+  
 }

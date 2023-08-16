@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { LoaderModule } from 'src/app/shared';
 import { FilaDigitalComponent } from '../../pages';
 import { TurneroRoutingModule } from './turnero-routing.module';
-import { CarrouselComponent, TurneroDigitalComponent } from '../../components';
+import { CarrouselComponent, ModalReturnComponent, TurneroDigitalComponent } from '../../components';
 import { ButtonsModule } from 'src/app/shared/buttons.module';
 
 @NgModule({
-  declarations: [FilaDigitalComponent, TurneroDigitalComponent, CarrouselComponent],
+  declarations: [FilaDigitalComponent, TurneroDigitalComponent, CarrouselComponent, ModalReturnComponent],
   imports: [CommonModule, TurneroRoutingModule, LoaderModule, ButtonsModule],
   exports: [FilaDigitalComponent],
 })

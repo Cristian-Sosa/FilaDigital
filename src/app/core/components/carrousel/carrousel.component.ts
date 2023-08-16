@@ -10,17 +10,17 @@ export class CarrouselComponent implements OnInit, OnDestroy {
   public imagenOferta: string | null = null;
 
   constructor(private carrouselService: CarrouselService) {}
-  
+
   ngOnDestroy(): void {
-    this.carrouselService.clearInterval()
+    this.carrouselService.clearInterval();
   }
 
   ngOnInit(): void {
     this.carrouselService.getOfertaObservable().subscribe({
       next: (imagen) => {
-this.imagenOferta = imagen
-      }
-    })
-    this.carrouselService.getOfertas()
+        this.imagenOferta = imagen;
+      },
+    });
+    this.carrouselService.getOfertas();
   }
 }
