@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { FooterComponent, LoaderModule, ToolbarComponent } from './shared';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NotFoundComponent } from './core/pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [AppComponent, ToolbarComponent, FooterComponent],
