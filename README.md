@@ -1,27 +1,182 @@
-# TurneroDinoCliente
+<header align="center">
+  
+  <h1 align="center">Turnero Dino - Usuario cliente</h1>
+  
+  <p align="center">Turnero digital para puestos con ofertas dinámicas</p>
+ 
+</header>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
+<section align="center">
 
-## Development server
+[Documentación](https://github.com/grupodinosaurio/TurneroDino)
+·
+[Ver Portal de empleo](http://clubmami.com.ar/miturno/turnero/AV/carniceria)
+·
+[Reportar Bug](https://github.com/grupodinosaurio/TurneroDino)
+·
+[Solicitar Feature](https://github.com/grupodinosaurio/TurneroDino)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+</section>
 
-## Code scaffolding
+<!-- TABLE OF CONTENTS -->
+<details closed>
+  <summary>Indice de contenidos</summary>
+  <ul>
+    <li>
+      <a href="#about-the-project">Sobre el Proyecto</a>
+      <ul>
+        <li><a href="#capturas">Capturas</a></li>
+        <li><a href="#stack">Stack & Dependencias</a></li>
+      </ul>
+    </li>
+    <li><a href="#install">Como iniciar</a></li>
+    <li><a href="#contact">Contactos</a></li>
+  </ul>
+</details>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<br />
+<br />
 
-## Build
+<section id="about-the-project">
+  <h2>💼 Sobre el Proyecto</h2>
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+TurneroDino es una página web que permite al usuario `escanear con QR` el puesto. Permite al usuario cliente final:
 
-## Running unit tests
+- Cargar su turno físico (previamente retirado en el puesto)
+- Ver turno actual, recibe una alerta 5 turnos antes para acercarse al puesto
+- Ver ofertas del puesto actual
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+_Esta web se complementa con una página que tiene cada puesto._
 
-## Running end-to-end tests
+<article id="capturas">
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+  <h3>📸 Capturas</h3>
 
-## Further help
+![Desktop App version](./docs/image-1.png "Desktop App version - Login")
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+<br />
+
+![Desktop App version](./docs/image-2.png "Desktop App version - Turnero - Alerta 1")
+
+</article>
+  
+<br />
+<br />
+  
+<article id="stack">
+  
+  <h3>👾 Stack & Dependencias</h3>
+
+| **Nombre**                    | **Versión** |
+| ----------------------------- | ----------- |
+|                               |             |
+| @angular-devkit/build-angular | 16.0.3      |
+| @angular-devkit/core          | 16.0.3      |
+| @angular-devkit/schematics    | 16.0.6      |
+| @angular/cli                  | 16.0.6      |
+| @schematics/angular           | 16.0.6      |
+| rxjs                          | 7.8.1       |
+| typescript                    | 5.0.4       |
+
+</article>
+  
+<br />
+
+</section>
+
+<section id="install">
+  <h2>💻 Como iniciar</h2>
+
+<article>
+  
+  *Para el proyecto es necesario tener instalado NodeJs & npm*
+
+  <pre>
+  <code>
+   $ git clone https://github.com/grupodinosaurio/TurneroDino.git // Clone the repo
+   
+   $ git checkout front-prod // rama main del front
+   
+   $ npm install // Instalación de dependencias
+  </code>
+  </pre>
+
+  <br />
+  
+  El proyecto está estructurado de la siguiente forma:  
+  
+  <pre>
+    + src
+        + app
+            + core
+                + components
+                + modules
+                + pages
+            + shared
+                + components
+                + models
+                + services  
+  </pre>
+  
+En la carpeta `core/pages` se vaun componente general que es exportado en cada módulo, el resto de componentes son llamados desde `core/components` o importados desde su módulo compartido que se encuentra en `shared`
+
+En la carpeta `shared/models` se van a encontrar las interfaces, las cuales están modularizadas para las respuestas de servicios y/o variables.
+
+En la carpeta `shared/services` se van a encontrar servicios con responsabilidades divididas para cada acción.
+
+  <br />
+  <br />
+  <br />
+
+Cómandos para desarrollo local
+
+  <pre>
+  <code>
+  // Para cambiar las variables de entorno ingresar a 'src/environments'
+
+   $ ng serve --configuration production // desarrollo local con API de producción
+
+   $ ng serve // desarrollo local con API de testing
+  </code>
+  </pre>
+
+  <br />
+  <br />
+  
+Para preparar el proyecto y subir a producción se deberá ejecutar el siguiente comando
+  
+  <pre>
+  <code>
+// 1. Eliminar todos los archivos, a excepción de .htaccess, de la ruta 
+//    'C:\wamp64\www\miturno' del servidor 'GDALVSRVDM01'
+// 2. Ejecutar el comando de abajo
+// 3. Copiar el resultado en la carpeta 'dist/turnero'
+// 4. Pegar en la ruta del servidor
+
+$ npm run build --omit=dev
+  </code>
+  </pre>
+  
+</article>
+  
+</section>
+
+<br />
+<br />
+
+<section id="contact">
+  <h2>🤝🏽 Contactos</h2>
+
+<article>
+  
+  Participantes del proyecto:
+  
+  - Hugo Ragno (Product Owner)
+  - Marcelo Urriche (Scrum Master)
+  - Marcos Castillo (Desarrollador)
+  - Matias Molina (Desarrollador)
+  - Cristian Sosa (Desarrollador)
+
+</article>
+  
+</section>
