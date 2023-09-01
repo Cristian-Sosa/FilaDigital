@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LoaderService, ToolbarService } from 'src/app/shared';
+import { Router } from '@angular/router';
+import { PuestoService, SucursalService } from 'src/app/shared';
 
 @Component({
   selector: 'app-auth',
@@ -7,15 +8,22 @@ import { LoaderService, ToolbarService } from 'src/app/shared';
   styleUrls: ['./auth.component.sass'],
 })
 export class AuthComponent implements OnInit {
-  public isError: boolean = false;
+  private currentRoute: Array<string> = [];
+  private sucursal: string = '';
+  private puesto: string = '';
 
   constructor(
-    private toolbarService: ToolbarService,
-    private loaderService: LoaderService
-  ) {}
+    private router: Router,
+    private sucursalService: SucursalService,
+    private puestoService: PuestoService
+  ) {
+    this.currentRoute = this.router.url.toString().split('/');
+    this.sucursal = this.currentRoute[2];
+    this.puesto = this.currentRoute[3];
+  }
 
   ngOnInit(): void {
-    this.toolbarService.setToolbarTitle('Gestor de turnero');
-    this.loaderService.setLoaderState(false);
+    this.sucursalService.setSucursal(this.sucursal);
+    this.puestoService.setPuesto(this.puesto);
   }
 }

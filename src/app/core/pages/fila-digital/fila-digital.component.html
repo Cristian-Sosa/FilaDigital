@@ -1,0 +1,14 @@
+<app-turnero-digital></app-turnero-digital>
+
+<app-secondary-button
+  (click)="showReturnModal()"
+  [button]="{
+    text: 'Volver al inicio',
+    disabled: false,
+    type: 'button',
+  }"
+></app-secondary-button>
+<span class="description">Recuerda entregarle el turno al vendedor</span>
+<app-carrousel></app-carrousel>
+
+<app-modal-return *ngIf="returnModal" (isReturn)="volverInicio($event)"></app-modal-return>

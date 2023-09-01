@@ -1,25 +1,23 @@
-<form [formGroup]="authForm" (submit)="validateForm($event)">
+<form [formGroup]="turnoForm" class="form" (submit)="submitForm()">
   <input
-    formControlName="userInput"
-    type="text"
-    name="usuario"
-    id="usuario"
-    placeholder="Usuario"
-  />
-  <input
-    formControlName="passwordInput"
-    type="password"
-    name="contraseña"
-    id="contraseña"
-    placeholder="Contraseña"
+    id="turnoCliente"
+    class="form_input"
+    name="turnoCliento"
+    formControlName="turnoInput"
+    type="number"
+    min="0"
+    minlength="1"
+    max="99"
+    maxlength="2"
+    required
+    placeholder="Turno físico"
   />
 
   <app-primary-button
     [button]="{
-      text: 'Ingresar',
-      type: 'submit',
-      disabled: !authForm.valid
+      text: 'Ver turno digital',
+      disabled: !turnoForm.valid,
+      type: 'submit'
     }"
-    (click)="validateForm($event)"
   ></app-primary-button>
 </form>

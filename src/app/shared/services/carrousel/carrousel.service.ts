@@ -1,8 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { Injectable, OnDestroy, Signal, effect, signal } from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+  interval,
+  take,
+} from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { PuestoService } from '../puesto';
+import { SucursalService } from '../sucursal';
+import { TimerHandle } from 'rxjs/internal/scheduler/timerHandle';
+import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +24,10 @@ export class CarrouselService {
 
   private interval: any;
 
-  constructor(private http: HttpClient, private puestoService: PuestoService) {
+  constructor(
+    private http: HttpClient,
+    private sucursalService: SucursalService
+  ) {
     this._oferta = new BehaviorSubject(this.oferta);
   }
 
@@ -24,9 +35,10 @@ export class CarrouselService {
     this._oferta.asObservable();
 
   getOfertasActivas = (): Observable<any> => {
-    let sector: number | string = this.puestoService.getCurrentPuesto()!;
-    let urlGet: string =
-      environment.apiReportes + `Imagen/VerImagenes?sector_id=${sector}`;
+    let sector: number | string = this.sucursalService.getCurrentSucursal()!;
+    let urlGet: string = environment.apiUrl.concat(
+      `VerImagenes?sector_id=${sector}`
+    );
 
     return this.http.get<any>(urlGet);
   };
@@ -37,27 +49,25 @@ export class CarrouselService {
       .subscribe({
         next: (ofertas) => {
           this.ofertas = ofertas.data;
-
-          this.interval = setInterval(() => this.intervalFunction(), 600000);
         },
         error: () => {
-          this.oferta = 'assets/images/carniceria-default.png';
+          this.oferta = 'carniceria-default';
           this._oferta.next(this.oferta);
         },
       });
+
+    this.interval = setInterval(() => this.intervalFunction(), 6000);
   };
 
   intervalFunction = (): void => {
-    if (this.ofertas.length > 0) {
-      this.oferta = this.ofertas[this.ofertasLength]?.imagen || null;
+    this.oferta = this.ofertas[this.ofertasLength]?.imagen || null;
 
-      if (this.ofertasLength == this.ofertas.length) {
-        this.ofertasLength = 0;
-        this.oferta = this.ofertas[this.ofertasLength]?.imagen || null;
-      }
-      this._oferta.next('data:image/png;base64,'.concat(this.oferta!));
-      this.ofertasLength++;
+    if (this.ofertasLength == this.ofertas.length) {
+      this.ofertasLength = 0;
+      this.oferta = this.ofertas[this.ofertasLength]?.imagen || null;
     }
+    this._oferta.next('data:image/png;base64,'.concat(this.oferta!));
+    this.ofertasLength++;
   };
 
   clearInterval = (): void => {

@@ -1,6 +1,4 @@
 export const environment = {
-  production: true,
-  apiAuth: 'http://172.17.2.198:89/api/',
-  apiTurnos: 'http://172.17.2.198:82/api/TurneroPuesto/',
-  apiReportes: 'http://172.17.2.198:83/api/',
+    production: true,
+    apiUrl: 'http://dinosauriorrhh.com.ar/APITurneroCliente/api/TurneroCliente/'
 };

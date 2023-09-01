@@ -10,6 +10,10 @@ import { IToast } from '../../models';
 export class ToastComponent implements OnInit {
   public toast: IToast = {
     text: 'Debes ingresar tu turno',
+    icon: {
+      type: 'exclamation',
+      route: '/assets/icons/bell.svg',
+    },
     show: false,
   };
   constructor(private toastService: ToastService) {}

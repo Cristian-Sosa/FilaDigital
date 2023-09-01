@@ -1,59 +1,96 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { SucursalService } from '../sucursal';
+import { UsuarioService } from '../usuario';
+import { Router } from '@angular/router';
+import { ToastService } from '../toast';
+import { IToast } from '../../models';
+import { PuestoService } from '../puesto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TurneroService {
-  private http = inject(HttpClient);
+  public turnos: any = null;
+  private _turnos: BehaviorSubject<any>;
 
-  public turno: number = 0;
-  private _turno: BehaviorSubject<number> = new BehaviorSubject(this.turno);
+  private interval: any = null;
 
-  getTurnoObservable = (): Observable<number> => this._turno.asObservable();
+  constructor(
+    private sucursalService: SucursalService,
+    private usuarioService: UsuarioService,
+    private toastService: ToastService,
+    private http: HttpClient,
+  ) {
+    this._turnos = new BehaviorSubject(null);
+  }
 
-  getCurrentTurno = (): number => this.turno;
+  getTurnosObservable = (): Observable<any> => this._turnos.asObservable();
 
-  setTurno = (turno: number): void => {
-    this.turno = turno;
-    this._turno.next(this.turno);
-  };
+  getTurnoCliente(numeroTurno: number | string): Observable<any> {
+    let urlPostTurno: string = environment.apiUrl.concat(`IngresarTurno`);
 
-  getTurnoPuesto = (sector: number): Observable<any> => {
-    let url = '';
-    url = environment.apiTurnos.concat(`VerTurnoActual?sector_id=${sector}`);
-
-    return this.http.get<any>(url);
-  };
-
-  changeTurno(sector: number, turno: number): Observable<any> {
-    let orTurno = {
-      id: 0,
-      numero: turno,
-      sector_id: sector.toString(),
-      fechaLlamado: new Date(),
-      fechaAtendido: new Date(),
+    let oClienteReq = {
+      id: 1,
+      numero: numeroTurno,
+      sector_Id: this.sucursalService.getCurrentSucursal(),
     };
 
-    let url: string = '';
-    url = environment.apiTurnos.concat(`LlamarTurno`);
-
-    return this.http.post<any>(url, orTurno);
+    return this.http.post<any>(urlPostTurno, oClienteReq);
   }
 
-  getClientes(): Observable<any> {
-    let url: string = '';
-    url = environment.apiReportes.concat('Reporte/VerClientes');
-    // urlClientes = 'http://172.17.2.8:83/api/Reporte/VerClientes';//prod
-    return this.http.get<any>(url);
-  }
+  getTurnero = (): Observable<any> => {
+    let turno: number | string =
+      this.usuarioService.getCurrentUserData()?.idTurno!;
+    let sector: number | string = this.sucursalService.getCurrentSucursal()!;
+    let urlGetTurnero: string = environment.apiUrl.concat(
+      `VerTurno?cliente_id=${turno}&sector_id=${sector}`
+    );
+    return this.http.get<any>(urlGetTurnero);
+  };
 
-  getTurnos(): Observable<any> {
-    let url: string = '';
-    url = environment.apiReportes.concat('Reporte/VerTurnos');
-    // urlTurnos = 'http://172.17.2.8:83/api/Reporte/VerTurnos';//prod
-    return this.http.get<any>(url);
-  }
+  getDatosTurnero = () => {
+    this.getTurnero().subscribe({
+      next: (datosTurnero) => {
+        this.turnos = datosTurnero.data;
+        this._turnos.next(this.turnos);
+        this.toastService.isTurnoProximo(
+          this.turnos.numero,
+          this.turnos.turnoActual.numero
+        );
+      },
+      error: () => {
+        this.turnos = undefined;
+        this._turnos.next(this.turnos);
+      },
+    });
+
+    if (this.interval === null) {
+      this.interval = setInterval(() => this.getDatosTurnero(), 5500);
+    }
+
+
+    if (this.turnos?.numero < this.turnos?.turnoActual?.numero) {
+      if (this.turnos?.numero < 20 && this.turnos?.turnoActual?.numero > 80) {
+      } else {
+        this.turnos = undefined;
+        this._turnos.next(this.turnos);
+      }
+    }
+  };
+
+  clearInterval = (): void => {
+    let toast: IToast = {
+      text: 'Debes ingresar tu turno',
+      icon: {
+        type: 'exclamation',
+        route: '/assets/icons/exclamation-circle.svg',
+      },
+      show: false,
+    };
+    clearInterval(this.interval);
+    this.toastService.setToastState(toast);
+  };
 }

@@ -1,6 +1,6 @@
+import { TitleCasePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { ToolbarService } from '../toolbar';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +9,12 @@ export class PuestoService {
   private puesto: number | null = null;
   private _puesto: BehaviorSubject<number | null>;
 
-  constructor(private toolbarService: ToolbarService) {
+  private puestoName: string | null = null;
+  private _puestoName: BehaviorSubject<string | null>;
+
+  constructor() {
     this._puesto = new BehaviorSubject(this.puesto);
+    this._puestoName = new BehaviorSubject(this.puestoName);
   }
 
   getObservablePuesto = (): Observable<number | null> =>
@@ -20,14 +24,14 @@ export class PuestoService {
 
   setPuesto = (puesto: string): void => {
     if (puesto) {
-      switch (puesto) {
-        case '99':
+      switch (puesto.toLocaleLowerCase()) {
+        case 'carniceria':
           this.puesto = 1;
-          this.toolbarService.setToolbarTitle('Carnicería - Alto Verde')
+          this.setPuestoName(puesto);
           break;
-        case '100':
+        case 'fiambreria':
           this.puesto = 2;
-          this.toolbarService.setToolbarTitle('Fiambrería - Alto Verde')
+          this.setPuestoName(puesto);
           break;
 
         default:
@@ -35,5 +39,15 @@ export class PuestoService {
       }
       this._puesto.next(this.puesto);
     }
+  };
+
+  getObservablePuestoName = (): Observable<string | null> =>
+    this._puestoName.asObservable();
+
+  getCurrentPuestoName = (): string | null => this.puestoName;
+
+  setPuestoName = (puesto: string): void => {
+    this.puestoName = puesto;
+    this._puestoName.next(this.puestoName);
   };
 }

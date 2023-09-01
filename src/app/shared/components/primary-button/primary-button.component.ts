@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { IButton } from '../../models';
 
 @Component({
   selector: 'app-primary-button',
@@ -13,3 +12,9 @@ export class PrimaryButtonComponent {
     type: 'button'
   }
 }
+
+export interface IButton {
+  text: string;
+  disabled: boolean;
+  type: 'button' | 'submit' | 'menu' | 'reset';
+} 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LoaderService, ToastService, ToolbarService } from './shared';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { LoaderService, PuestoService, ToastService } from './shared';
+import { SucursalService } from './shared/services/sucursal/sucursal.service';
 
 @Component({
   selector: 'app-root',
@@ -9,29 +10,42 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   public isLoading: boolean = true;
-  public isToast: boolean = false;
-  public showFooter: boolean = true;
+  public isToast: boolean = true;
 
   constructor(
-    private toastService: ToastService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private puestoService: PuestoService,
+    private sucursalService: SucursalService,
     private loaderService: LoaderService,
-    private toolbarService: ToolbarService
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
-    this.toastService.getToastObservable().subscribe({
-      next: (currentState) => (this.isToast = currentState.show),
-    });
-    this.loaderService.getLoaderObservable().subscribe({
-      next: (currentState) => (this.isLoading = currentState),
-    });
-    this.toolbarService.getToolbarTitleObservable().subscribe((title) => {
-      if (title.includes('Carnicer') || title.includes('Fiambre')) {
-        this.showFooter = false;
-      } else {
-        this.showFooter = true;
-      }
-    })
+    this.loaderService
+      .getLoaderObservable()
+      .subscribe((loaderState) => (this.isLoading = loaderState));
+      
+    this.toastService.getToastObservable().subscribe((toastState) => this.isToast = toastState.show)
+    this.route.params.subscribe({
+      next: async (param) => {
+        const sucursal: string = await param['sucursal'];
+        const puesto: string = await param['puesto'];
 
+        this.setData(sucursal, puesto);
+      },
+      error: () => {
+        this.router.navigate(['404']);
+      },
+    });
+    this.sucursalService.setSucursal(
+      this.route.snapshot.paramMap.get('sucursal')!
+    );
+    this.puestoService.setPuesto(this.route.snapshot.paramMap.get('puesto')!);
   }
+
+  setData = (sucursal: string, puesto: string): void => {
+    this.sucursalService.setSucursal(sucursal || 'av');
+    this.puestoService.setPuesto(puesto || 'carniceria');
+  };
 }

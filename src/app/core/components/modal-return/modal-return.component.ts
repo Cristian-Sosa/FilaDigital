@@ -6,9 +6,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./modal-return.component.sass'],
 })
 export class ModalReturnComponent {
-  @Output() isReset = new EventEmitter<boolean>();
+  @Output() isReturn = new EventEmitter<boolean>();
 
-  isCancelar = (isReset: boolean): void => {
-    this.isReset.emit(isReset);
+  isCancelar = (isReturn: boolean): void => {
+    this.isReturn.emit(isReturn);
   };
 }

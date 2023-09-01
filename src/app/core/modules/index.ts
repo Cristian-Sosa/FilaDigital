@@ -1,3 +1,3 @@
-export * from './auth';
-export * from './dashboard';
+export * from './404';
+export * from './inicio-sesion';
 export * from './turnero';

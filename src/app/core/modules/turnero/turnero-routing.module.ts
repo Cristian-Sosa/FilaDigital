@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthComponent, TurneroComponent } from '../../pages';
+import { FilaDigitalComponent } from '../../pages';
+
 
 const routes: Routes = [
-  { path: '', component: TurneroComponent },
+  { path: '', component: FilaDigitalComponent }
 ];
 
 @NgModule({

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToolbarService } from '../../services';
-import { Router } from '@angular/router';
+import { PuestoService, SucursalService } from '../../services';
 
 @Component({
   selector: 'app-toolbar',
@@ -8,30 +7,26 @@ import { Router } from '@angular/router';
   styleUrls: ['./toolbar.component.sass'],
 })
 export class ToolbarComponent implements OnInit {
-  public currentTitle: string = '';
-  public showCerrarSesion: boolean = false;
+  public sucursalName: string;
+  public puestoName: string;
 
-  constructor(private toolbarService: ToolbarService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.toolbarService.getToolbarTitleObservable().subscribe({
-      next: (currentTitle) => {
-        this.currentTitle = currentTitle;
-        if (
-          this.currentTitle.includes('marketing') ||
-          this.currentTitle.includes('administrador')
-        ) {
-          this.showCerrarSesion = true;
-        } else {
-          this.showCerrarSesion = false;
-        }
-      },
-      error: () => this.router.navigate(['']),
-    });
+  constructor(
+    private sucursalService: SucursalService,
+    private puestoService: PuestoService
+  ) {
+    this.sucursalName = '';
+    this.puestoName = '';
   }
-
-  cerrarSesion(): void {
-    localStorage.clear();
-    this.router.navigate(['login'])
+  ngOnInit(): void {
+    this.puestoService.getObservablePuestoName().subscribe({
+      next: (puestoName) => {
+        this.puestoName = puestoName || '';
+      },
+    });
+    this.sucursalService.getObservableSucursalName().subscribe({
+      next: (sucursalName) => {
+        this.sucursalName = sucursalName || '';
+      },
+    });
   }
 }

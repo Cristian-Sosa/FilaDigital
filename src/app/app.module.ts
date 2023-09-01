@@ -1,32 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {
-  HashLocationStrategy,
-  Location,
-  LocationStrategy,
-} from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent, LoaderModule, ToolbarComponent } from './shared';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InterceptorService } from './shared/interceptor/interceptor.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NotFoundComponent } from './core/pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [AppComponent, ToolbarComponent, FooterComponent],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     LoaderModule,
-    BrowserAnimationsModule,
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
-    Location,
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
