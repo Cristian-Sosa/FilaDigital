@@ -1,0 +1,45 @@
+<form class="form" [formGroup]="ofertasForm">
+  <div class="form_container">
+    <fieldset class="puesto">
+      <figcaption>Puestos:</figcaption>
+      <div class="fieldset_container">
+        <div class="puesto_option">
+          <input
+            type="radio"
+            name="puestoInput"
+            id="carniceria"
+            value="1"
+            formControlName="puestoInput"
+            (click)="cambiarPuesto(1)"
+            checked
+          />
+          <label for="carniceria">Carnicería AV</label>
+        </div>
+        <div class="puesto_option">
+          <input
+            type="radio"
+            name="puestoInput"
+            id="fiambreria"
+            value="2"
+            formControlName="puestoInput"
+            (click)="cambiarPuesto(2)"
+          />
+          <label for="fiambreria">Fiambrería AV</label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</form>
+
+<app-dashboard-marketing-ofertas></app-dashboard-marketing-ofertas>
+
+<app-dashboard-marketing-actions></app-dashboard-marketing-actions>
+
+<div class="use">
+  <span>
+    Selecciona la fecha de caducidad antes de agregar una nueva oferta, en caso
+    de no hacerlo la oferta será vigente solo por un día. <br />
+    Recuerda que las imagenes deben ser en formato .png con una resolución de
+    1080x1080
+  </span>
+</div>

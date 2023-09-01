@@ -1,0 +1,28 @@
+<table>
+  <thead>
+    <tr>
+      <th>Vencimiento de la oferta</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="ofertas.length > 0">
+    <tr
+      class="item"
+      *ngFor="let oferta of ofertas"
+      [id]="oferta?.id"
+      (click)="previewOferta(oferta)"
+    >
+      <td>{{ oferta?.fechaAlta | date : "dd/MM" }}</td>
+      <td class="actions" (click)="caducarOferta(oferta?.id)">
+        <img src="assets/icons/dash-square.svg" alt="oferta DinoMall" />
+        Deshabilitar
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="ofertas.length === 0" class="error">
+    <tr>
+      <td>Sin ofertas activas</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,25 @@
+<form [formGroup]="authForm" (submit)="validateForm($event)">
+  <input
+    formControlName="userInput"
+    type="text"
+    name="usuario"
+    id="usuario"
+    placeholder="Usuario"
+  />
+  <input
+    formControlName="passwordInput"
+    type="password"
+    name="contraseña"
+    id="contraseña"
+    placeholder="Contraseña"
+  />
+
+  <app-primary-button
+    [button]="{
+      text: 'Ingresar',
+      type: 'submit',
+      disabled: !authForm.valid
+    }"
+    (click)="validateForm($event)"
+  ></app-primary-button>
+</form>

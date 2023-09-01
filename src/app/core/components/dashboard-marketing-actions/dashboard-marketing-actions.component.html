@@ -1,0 +1,22 @@
+<fieldset class="caducidad">
+  <figcaption>Fecha de caducidad:</figcaption>
+  <div class="fieldset_container">
+    <div class="puesto_option">
+      <input
+        type="date"
+        name="caducidadInput"
+        id="caducidadInput"
+        (change)="changeDate($event)"
+      />
+    </div>
+  </div>
+</fieldset>
+
+<input
+  type="file"
+  name="nuevaOferta"
+  id="nuevaOferta"
+  accept="image/png"
+  (change)="cargarOferta($event)"
+/>
+<label for="nuevaOferta">Cargar nueva oferta</label>
