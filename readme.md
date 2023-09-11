@@ -158,23 +158,6 @@ Cómandos para desarrollo local
    $ ng serve // desarrollo local con API de testing
   </code>
   </pre>
-
-  <br />
-  <br />
-  
-Para preparar el proyecto y subir a producción se deberá ejecutar el siguiente comando
-  
-  <pre>
-  <code>
-// 1. Eliminar todos los archivos, a excepción de .htaccess, de la ruta 
-//    'C:\wamp64\www\miturno' del servidor 'GDALVSRVDM01'
-// 2. Ejecutar el comando de abajo
-// 3. Copiar el resultado en la carpeta 'dist/turnero'
-// 4. Pegar en la ruta del servidor
-
-$ npm run build --omit=dev
-  </code>
-  </pre>
   
 </article>
   
