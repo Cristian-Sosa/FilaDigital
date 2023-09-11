@@ -2,19 +2,19 @@
   
   <h1 align="center">Turnero Dino - Usuario cliente</h1>
   
-  <p align="center">Turnero digital para puestos con ofertas dinámicas</p>
+  <p align="center">Vista de fila digital para clientes y puestos con ofertas dinámicas</p>
  
 </header>
 
 <section align="center">
 
-[Documentación](https://github.com/grupodinosaurio/TurneroDino)
+[Documentación](https://github.com/Cristian-Sosa/FilaDigital)
 ·
 [Ver Portal de empleo](http://clubmami.com.ar/miturno/turnero/AV/carniceria)
 ·
-[Reportar Bug](https://github.com/grupodinosaurio/TurneroDino)
+[Reportar Bug](https://github.com/Cristian-Sosa/FilaDigital/issues)
 ·
-[Solicitar Feature](https://github.com/grupodinosaurio/TurneroDino)
+[Solicitar Feature](https://github.com/Cristian-Sosa/FilaDigital/issues)
 
 </section>
 
@@ -40,7 +40,7 @@
 <section id="about-the-project">
   <h2>💼 Sobre el Proyecto</h2>
 
-TurneroDino es una página web que permite al usuario `escanear con QR` el puesto. Permite al usuario cliente final:
+FilaDigital es una página web que permite al usuario `escanear con QR` el puesto. Permite al usuario cliente final:
 
 - Cargar su turno físico (previamente retirado en el puesto)
 - Ver turno actual, recibe una alerta 5 turnos antes para acercarse al puesto
@@ -50,13 +50,27 @@ _Esta web se complementa con una página que tiene cada puesto._
 
 <article id="capturas">
 
-  <h3>📸 Capturas</h3>
+  <h3>📸 Capturas vista de cliente</h3>
 
 ![Desktop App version](./docs/image-1.png "Desktop App version - Login")
 
 <br />
 
 ![Desktop App version](./docs/image-2.png "Desktop App version - Turnero - Alerta 1")
+
+<br />
+<br />
+<br />
+
+<h3>📸 Capturas vista de BackOffice</h3>
+
+<br />
+
+![Desktop App version](./docs/puesto.png "Desktop App version - Turnero - Alerta 1")
+
+<br />
+
+![Desktop App version](./docs/marketing.png "Desktop App version - Turnero - Alerta 1")
 
 </article>
   
@@ -70,6 +84,9 @@ _Esta web se complementa con una página que tiene cada puesto._
 | **Nombre**                    | **Versión** |
 | ----------------------------- | ----------- |
 |                               |             |
+| nodeJs                        | 18.16.0     |
+| npm                           | 9.6.6       |
+|                               |             |
 | @angular-devkit/build-angular | 16.0.3      |
 | @angular-devkit/core          | 16.0.3      |
 | @angular-devkit/schematics    | 16.0.6      |
@@ -77,6 +94,8 @@ _Esta web se complementa con una página que tiene cada puesto._
 | @schematics/angular           | 16.0.6      |
 | rxjs                          | 7.8.1       |
 | typescript                    | 5.0.4       |
+|                               |             |
+| canvasJs                      | latests     |
 
 </article>
   
@@ -93,11 +112,11 @@ _Esta web se complementa con una página que tiene cada puesto._
 
   <pre>
   <code>
-   $ git clone https://github.com/grupodinosaurio/TurneroDino.git // Clone the repo
+   $ git clone https://github.com/Cristian-Sosa/FilaDigital.git // Clone the repo
    
-   $ git checkout front-prod // rama main del front
+   $ git checkout main // rama main del front
    
-   $ npm install // Instalación de dependencias
+   $ npm i // Instalación de dependencias
   </code>
   </pre>
 
